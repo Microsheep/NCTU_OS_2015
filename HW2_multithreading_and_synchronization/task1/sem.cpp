@@ -20,20 +20,20 @@ public:
 
 Counter x;
 sem_t sem;
-int lock = sem_init(&sem, 0, 1);
 
 void* ThreadRunner(void*){
     int k;
     for (k=0;k<100000000;k++){
-        lock = sem_wait(&sem);
+        sem_wait(&sem);
         x.Increment();
-        lock = sem_post(&sem);
+        sem_post(&sem);
     }
 }
 
 int main(){
     pthread_t tid[3];
     int i;
+    sem_init(&sem, 0, 1);
     for(i=0;i<3;i++){
         pthread_create(&tid[i], NULL, ThreadRunner, 0);
     }

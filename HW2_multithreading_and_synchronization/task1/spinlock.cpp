@@ -19,20 +19,20 @@ public:
 
 Counter x;
 pthread_spinlock_t spin;
-int lock = pthread_spin_init(&spin, 0);
 
 void* ThreadRunner(void*){
     int k;
     for (k=0;k<100000000;k++){
-        lock = pthread_spin_lock(&spin);
+        pthread_spin_lock(&spin);
         x.Increment();
-        lock = pthread_spin_unlock(&spin);
+        pthread_spin_unlock(&spin);
     }
 }
 
 int main(){
     pthread_t tid[3];
     int i;
+    pthread_spin_init(&spin, 0);
     for(i=0;i<3;i++){
         pthread_create(&tid[i], NULL, ThreadRunner, 0);
     }
