@@ -1,5 +1,5 @@
 # It is a makefile for hw2
-all:base.cpp mutex.cpp sem.cpp spinlock.cpp
+all:base.cpp mutex.cpp sem.cpp spinlock.cpp homemade_spinlock.cpp
 	g++ base.cpp -std=c++11 -lpthread -o base.o
 	g++ mutex.cpp -std=c++11 -lpthread -o mutex.o
 	g++ sem.cpp -std=c++11 -lpthread -o sem.o
