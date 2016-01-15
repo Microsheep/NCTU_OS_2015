@@ -1,6 +1,6 @@
 #include <iostream>
 #include <pthread.h>
-#define thread_num 16
+#define thread_num 3
 using namespace std;
 
 class Counter{

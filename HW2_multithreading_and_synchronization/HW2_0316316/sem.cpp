@@ -1,6 +1,7 @@
 #include <iostream>
 #include <pthread.h>
-#define thread_num 16
+#include <semaphore.h>
+#define thread_num 3
 using namespace std;
 
 class Counter{
@@ -19,20 +20,21 @@ public:
 };
 
 Counter x;
-pthread_mutex_t mutex;
+sem_t sem;
 
 void* ThreadRunner(void*){
     int k;
     for (k=0;k<100000000;k++){
-        pthread_mutex_lock(&mutex);
+        sem_wait(&sem);
         x.Increment();
-        pthread_mutex_unlock(&mutex);
+        sem_post(&sem);
     }
 }
 
 int main(){
     pthread_t tid[thread_num];
     int i;
+    sem_init(&sem, 0, 1);
     for(i=0;i<thread_num;i++){
         pthread_create(&tid[i], NULL, ThreadRunner, 0);
     }
